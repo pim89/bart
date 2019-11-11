@@ -19,13 +19,14 @@ MAKEFLAGS += -R
 AR=./ar_lock.sh
 
 MKL?=0
-CUDA?=0
+CUDA?=1
 ACML?=0
 OMP?=1
 SLINK?=0
 DEBUG?=0
 FFTWTHREADS?=1
 ISMRMRD?=0
+NOLAPACKE=1
 NOEXEC_STACK?=0
 
 LOG_BACKEND?=0
@@ -128,7 +129,7 @@ endif
 
 # cuda
 
-CUDA_BASE ?= /usr/local/
+CUDA_BASE ?= /usr/
 
 
 # acml
@@ -289,7 +290,7 @@ CPPFLAGS += -DUSE_CUDA $(CUDA_H)
 ifeq ($(BUILDTYPE), MacOSX)
 CUDA_L := -L$(CUDA_BASE)/lib -lcufft -lcudart -lcublas -m64 -lstdc++
 else
-CUDA_L := -L$(CUDA_BASE)/lib64 -lcufft -lcudart -lcublas -lstdc++ -Wl,-rpath $(CUDA_BASE)/lib64
+CUDA_L := -L$(CUDA_BASE)/lib64 -lcufft -lcudart -lcublas -lstdc++ -Wl,-rpath $(CUDA_BASE)/lib
 endif 
 else
 CUDA_H :=
